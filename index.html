@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>India's New GDP Series — Base 2022-23, Explained</title>
+<meta name="description" content="India's GDP base moved from 2011-12 to 2022-23 (MoSPI, 27 Feb 2026). What changed, old vs new numbers, why it is better, the controversy, and what to watch.">
+<style>
+:root{--navy:#0B1B30;--teal:#0E5E5A;--marigold:#E8A317;--mist:#EAF0F2;--ink:#10233c;--paper:#F7FAFB;--line:#CBD9DE}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Noto Serif',Palatino,'Times New Roman',serif;line-height:1.65;font-size:17px}
+.sans{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Sans',Arial,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+/* HERO */
+.hero{position:relative;background:var(--navy);color:#fff;overflow:hidden}
+.hero::after{content:"₹";position:absolute;right:-30px;top:-90px;font-size:340px;line-height:1;font-family:Georgia,serif;color:transparent;-webkit-text-stroke:2px rgba(232,163,23,.55);opacity:.9;pointer-events:none;user-select:none}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 15% 10%,rgba(14,94,90,.7),transparent 70%),radial-gradient(500px 260px at 90% 90%,rgba(232,163,23,.18),transparent 65%)}
+.hero-inner{position:relative;z-index:1;padding:52px 0 40px}
+.kicker{display:inline-block;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13.5px;letter-spacing:.02em;background:var(--marigold);color:#231603;font-weight:700;padding:6px 12px;border-radius:999px}
+.hero h1{font-size:clamp(32px,7vw,52px);line-height:1.08;margin:18px 0 10px;letter-spacing:-.01em;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--marigold)}
+.hero p.lede{margin:0;max-width:36em;color:#D7E3E8;font-size:clamp(16px,4.4vw,19px);line-height:1.6}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:20px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:13.5px;color:#BFD0D8}
+.hero-meta b{color:#fff}
+.ticker{display:flex;gap:10px;overflow-x:auto;margin-top:22px;padding-bottom:4px}
+.tick{flex:0 0 auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px 14px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px}
+.tick b{font-size:18px;color:var(--marigold)}
+.tick span{display:block;font-size:12.5px;color:#C6D6DC}
+/* STRIP */
+.notice{background:var(--marigold);color:#231603;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px;padding:10px 0}
+.notice .wrap{display:flex;gap:10px;align-items:baseline}
+/* SECTIONS */
+section.block{padding:30px 0 6px}
+h2{font-size:26px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+h2 .bar{display:block;width:52px;height:5px;background:var(--teal);border-radius:3px;margin-bottom:12px}
+.sub{color:#3d5566;margin:0 0 16px;font-size:16px}
+.grid2{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:640px){.grid2{grid-template-columns:1fr 1fr}}
+.card{border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;background:#fff}
+.card.teal{background:var(--teal);color:#fff;border-color:var(--teal)}
+.card.navy{background:var(--navy);color:#EAF0F2;border-color:var(--navy)}
+.card h3{margin:0 0 6px;font-size:17px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+.card p{margin:0;font-size:15px}
+.tag{display:inline-block;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--mist);color:var(--teal);margin-bottom:8px}
+/* TABLE */
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:520px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14.5px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line)}
+th{background:var(--navy);color:#fff;font-size:13px}
+tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;font-weight:700}
+.down{color:#B23A2A}.up{color:var(--teal)}
+/* VERSUS */
+.vs{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:640px){.vs{grid-template-columns:1fr 1fr}}
+.side{border-radius:14px;padding:16px;border:1px solid var(--line);background:#fff}
+.side.good{border-top:6px solid var(--teal)}
+.side.wary{border-top:6px solid var(--marigold)}
+.side h3{margin:0 0 8px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:16px}
+ul{margin:8px 0;padding-left:20px}li{margin:6px 0;font-size:15.5px}
+/* CHECKLIST */
+.watch{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.watch li{background:#fff;border:1px solid var(--line);border-left:8px solid var(--marigold);border-radius:10px;padding:12px 14px;font-size:15.5px}
+.watch li b{display:block;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px}
+/* FOOTER */
+footer{background:var(--navy);color:#C6D6DC;margin-top:34px;padding:28px 0 40px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:14px}
+footer a{color:var(--marigold)}
+footer h2{color:#fff;font-size:19px;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif}
+.small{font-size:13px;color:#9DB4BE}
+details{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:10px 12px;margin-top:10px}
+summary{cursor:pointer;font-weight:700;color:#fff}
+:focus-visible{outline:3px solid var(--marigold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="kicker">MoSPI · 27 Feb 2026 · PIB PRID 2233518</span>
+    <h1>India just <em>re-based</em> its GDP. Here&rsquo;s what it means for you.</h1>
+    <p class="lede">The measuring tape for the economy moved from <b>2011&ndash;12</b> to <b>2022&ndash;23</b>. Totals look a little smaller, methods look a lot fresher &mdash; and your old growth comparisons need a footnote now.</p>
+    <div class="hero-meta"><span>Base year <b>2022&ndash;23</b></span><span>·</span><span>FY26 advance estimate <b>+7.6% GDP</b></span><span>·</span><span>Q1 FY27 <b>+7.8% real</b></span></div>
+    <div class="ticker sans" aria-label="Key numbers">
+      <div class="tick"><b>&minus;2.9%</b><span>Nominal GDP revised, 2022&ndash;23</span></div>
+      <div class="tick"><b>&minus;3.8%</b><span>Nominal GDP revised, 2023&ndash;24 &amp; 2024&ndash;25</span></div>
+      <div class="tick"><b>9.2&rarr;7.2%</b><span>Real growth, 2023&ndash;24</span></div>
+      <div class="tick"><b>6.5&rarr;7.1%</b><span>Real growth, 2024&ndash;25</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="notice"><div class="wrap"><span aria-hidden="true">◉</span><span><b>30-second take:</b> the economy didn&rsquo;t shrink &mdash; the ruler changed. New data (GST, MCA, HCES, PLFS, ASUSE) replaced decade-old surveys.</span></div></div>
+
+<main class="wrap">
+
+<section class="block" id="changed">
+<h2><span class="bar"></span>What actually changed</h2>
+<p class="sub">Three shifts in one release: a new base year, new source data, and stricter quarterly math.</p>
+<div class="grid2">
+<div class="card navy"><h3>New base: 2022&ndash;23</h3><p>Old anchor 2011&ndash;12 retired. All levels and weights now reflect the post-GST, post-Covid economy.</p></div>
+<div class="card"><span class="tag">Fresh inputs</span><h3>GST · MCA · HCES · PLFS · ASUSE · ASI · e-Vahan · PFMS</h3><p>Indirect-tax records, company filings, new consumption and jobs surveys, and vehicle / public-finance registers feed the estimates.</p></div>
+<div class="card teal"><h3>Sharper methods</h3><p><b>Denton</b> benchmarking for quarterly series; <b>double deflation</b> for manufacturing value-added. Less drift between quarters and years.</p></div>
+<div class="card"><span class="tag">Coverage</span><h3>What gets counted better</h3><p>Services, small firms, and informal activity captured through the newer surveys and administrative data rather than old ratios.</p></div>
+</div>
+</section>
+
+<section class="block" id="old-new">
+<h2><span class="bar"></span>Old series vs new series</h2>
+<p class="sub">Same economy, new ruler. Nominal levels step down; real growth is rewritten in opposite directions for the last two years.</p>
+<div class="table-scroll"><table>
+<tr><th>Indicator</th><th>Old (2011&ndash;12 base)</th><th>New (2022&ndash;23 base)</th><th>Reading</th></tr>
+<tr><td>Nominal GDP 2022&ndash;23</td><td class="num">₹269.5 lakh cr*</td><td class="num">₹261.7 lakh cr*</td><td class="num down">&minus;2.9%</td></tr>
+<tr><td>Nominal GDP 2023&ndash;24</td><td class="num">Base 100</td><td class="num">Base 100</td><td class="num down">&minus;3.8%</td></tr>
+<tr><td>Nominal GDP 2024&ndash;25</td><td class="num">Base 100</td><td class="num">Base 100</td><td class="num down">&minus;3.8%</td></tr>
+<tr><td>Real growth 2023&ndash;24</td><td class="num">9.2%</td><td class="num">7.2%</td><td>Revised <span class="down">down 2.0 pts</span></td></tr>
+<tr><td>Real growth 2024&ndash;25</td><td class="num">6.5%</td><td class="num">7.1%</td><td>Revised <span class="up">up 0.6 pts</span></td></tr>
+<tr><td>FY26 advance estimate</td><td class="num" colspan="2">+7.6% GDP · +7.7% GVA (MoSPI SAE)</td><td>New base only</td></tr>
+<tr><td>Q1 FY27 real growth</td><td class="num" colspan="2">+7.8% (reported 3 Sep 2026)</td><td>New base only</td></tr>
+</table></div>
+<p class="small sans">* Rounded levels implied by the announced revision percentages; MoSPI release gives the percentages and growth rates above. Q1 FY27 first-quarter comparison is on the new base, so do not splice it onto the old series.</p>
+</section>
+
+<section class="block" id="better">
+<h2><span class="bar"></span>Why statisticians say this is better</h2>
+<p class="sub">The update fixes a 14-year-old photograph of the economy.</p>
+<ul>
+<li><b>Post-GST reality.</b> GST returns track formal turnover directly instead of imputing it from old ratios.</li>
+<li><b>Company filings (MCA).</b> A wider, cleaner corporate universe replaces thin sample blow-ups.</li>
+<li><b>New household maps.</b> The Household Consumption Expenditure Survey (HCES) and PLFS refresh spending and jobs weights.</li>
+<li><b>Small firms counted.</b> ASUSE plus ASI cover unincorporated and organised manufacturing separately.</li>
+<li><b>Cleaner quarters.</b> Denton benchmarking keeps quarterly paths consistent with annual totals; double deflation stops input-price swings from masquerading as manufacturing growth.</li>
+</ul>
+</section>
+
+<section class="block" id="debate">
+<h2><span class="bar"></span>The controversy, fairly stated</h2>
+<p class="sub">A rebasing always moves history. Whether it moved it correctly is the argument.</p>
+<div class="vs">
+<div class="side good"><h3>The government&rsquo;s case</h3>
+<ul><li>14-year-old base was overdue; global practice is roughly every 5&ndash;10 years.</li>
+<li>Administrative data (GST, MCA, e-Vahan, PFMS) is harder to argue with than survey multipliers.</li>
+<li>Q1 FY27 printed <b>+7.8% real</b> on the new base &mdash; momentum intact.</li>
+</ul></div>
+<div class="side wary"><h3>The sceptics&rsquo; case</h3>
+<ul><li>2023&ndash;24 growth cut from <b>9.2% to 7.2%</b> raises the question: how firm was the old &ldquo;fastest-growing&rdquo; narrative?</li>
+<li>Back-series splicing is thin; HT (3 Sep 2026) cites base 80.00 vs govt 88.27 and Garg&rsquo;s old 86.05 &mdash; Q1 comparisons hinge on which denominator you trust.</li>
+<li>Nominal levels marked down ~3&ndash;4% flatter tax-to-GDP and debt optics; informal-sector capture is still contested.</li>
+</ul></div>
+</div>
+<p class="small sans">Bottom line: methods are more modern, but treat any long time-series chart spanning the base change as provisional until MoSPI publishes a full back series.</p>
+</section>
+
+<section class="block" id="watch">
+<h2><span class="bar"></span>What to watch next</h2>
+<p class="sub">Four numbers that will show whether the new tape measures straight.</p>
+<ol class="watch sans">
+<li><b>Full back series + deflators</b>Do manufacturing and services deflators behave under double deflation, or swing the story quarter to quarter?</li>
+<li><b>Nominal GDP path</b>A ~3.8% lower denominator lifts debt and deficit ratios &mdash; watch the Budget math.</li>
+<li><b>Q2&ndash;Q4 FY27 revisions</b>Denton-benchmarked quarters should revise less. If they don&rsquo;t, method gains are cosmetic.</li>
+<li><b>Jobs-consumption cross-check</b>Do PLFS jobs and HCES spending move with the new GVA, or diverge?</li>
+</ol>
+</section>
+
+</main>
+
+<footer>
+<div class="wrap">
+<h2>Sources &amp; further reading</h2>
+<p>MoSPI press release <b>27 Feb 2026</b>, PIB PRID <b>2233518</b> (base 2022&ndash;23) · MoSPI Second Advance / Advance Estimates for FY26: GDP <b>+7.6%</b>, GVA <b>+7.7%</b> · Q1 FY27 <b>+7.8% real</b> as reported <b>3 Sep 2026</b> (HT; base-level debate: 80.00 vs govt 88.27 vs old 86.05 per Garg).</p>
+<details><summary>Method &amp; data glossary</summary>
+<p>Denton = quarterly-to-annual benchmarking keeping quarter shapes while hitting annual totals. Double deflation = output and inputs deflated separately for manufacturing GVA. Sources: GSTN turnover, MCA-21 filings, HCES consumption, PLFS employment, ASUSE unincorporated enterprises, ASI organised industry, e-Vahan registrations, PFMS expenditure.</p></details>
+<p class="small">Built as a single static file for phones first. No trackers, no frameworks. Corrections: check MoSPI&rsquo;s release (PRID 2233518) first &mdash; this page summarises it.</p>
+</div>
+</footer>
+
+</body>
+</html>
