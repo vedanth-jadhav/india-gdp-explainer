@@ -8,14 +8,36 @@
 <style>
 :root{--bg:#FFFFFF;--bg2:#F5F5F7;--text:#1D1D1F;--gray:#6E6E73;--line:#E5E5EA;--blue:#0071E3}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
 .wrap{max-width:680px;margin:0 auto;padding:0 22px}
 header.top{padding:20px 0 8px;font-size:13px;color:var(--gray)}
+/* 4) sticky mini-nav */
+nav.mini{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+nav.mini .wrap{display:flex;gap:4px;overflow-x:auto;padding:10px 22px;max-width:720px;scrollbar-width:none}
+nav.mini .wrap::-webkit-scrollbar{display:none}
+nav.mini a{flex:0 0 auto;font-size:13px;font-weight:500;color:var(--gray);padding:6px 12px;border-radius:999px;text-decoration:none;white-space:nowrap}
+nav.mini a.active{background:var(--text);color:#fff}
+nav.mini a:hover{text-decoration:none;color:var(--text)}
+nav.mini a.active:hover{color:#fff}
 .hero{padding:56px 0 40px;text-align:left}
+/* 5) hero load sequence only */
+.hero .rise{opacity:0;transform:translateY(14px)}
+body.loaded .hero .rise{opacity:1;transform:none;transition:opacity .7s ease,transform .7s ease}
+body.loaded .hero .rise:nth-child(2){transition-delay:.08s}
+body.loaded .hero .rise:nth-child(3){transition-delay:.16s}
+.hero-stats{transition-delay:.24s !important}
+body.loaded .hero-stats.rise{opacity:1;transform:none;transition:opacity .7s ease .24s,transform .7s ease .24s}
 .hero h1{font-size:clamp(36px,7vw,56px);line-height:1.08;letter-spacing:-0.02em;font-weight:700;margin:0 0 16px;max-width:16ch}
 .hero p.sub{font-size:clamp(17px,3.5vw,21px);line-height:1.6;color:var(--gray);margin:0;max-width:56ch}
 .meta{font-size:13px;color:var(--gray);margin-top:20px;line-height:1.6}
-section{padding:44px 0}
+/* 1) hero stat numbers */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.stat{background:var(--bg2);border-radius:14px;padding:14px 14px 12px}
+.stat b{display:block;font-size:clamp(22px,5vw,30px);font-weight:700;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.stat span{font-size:12.5px;color:var(--gray);line-height:1.45;display:block;margin-top:4px}
+@media(max-width:520px){.hero-stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}}
+section{padding:44px 0;scroll-margin-top:64px}
 .band{background:var(--bg2)}
 h2{font-size:clamp(24px,5vw,32px);letter-spacing:-0.015em;line-height:1.2;margin:0 0 12px;font-weight:700}
 .lede{font-size:19px;line-height:1.65;margin:0;max-width:60ch}
@@ -30,34 +52,73 @@ ul.clean{margin:12px 0 0;padding:0;list-style:none}
 ul.clean li{padding:14px 0;border-bottom:1px solid var(--line);max-width:64ch}
 ul.clean li:last-child{border-bottom:0}
 ul.clean strong{font-weight:600}
-.two{display:grid;grid-template-columns:1fr;gap:0;margin-top:8px}
-@media(min-width:640px){.two{grid-template-columns:1fr 1fr;gap:32px}}
-.two h3{font-size:17px;margin:0 0 8px}
-.two ul{margin:0;padding-left:18px;color:var(--text)}
-.two li{margin:6px 0;font-size:15px}
+/* 2) old-vs-new CSS bars */
+.bars{margin-top:22px;display:grid;gap:16px}
+.bar-group .bar-label{font-size:14px;font-weight:600;margin-bottom:8px}
+.bar-row{display:grid;grid-template-columns:52px 1fr 52px;align-items:center;gap:10px;font-size:13px;margin:6px 0}
+.bar-row .tag{color:var(--gray);white-space:nowrap}
+.bar-track{background:#E8E8ED;border-radius:999px;height:14px;overflow:hidden}
+.bar-fill{display:block;height:100%;width:0;border-radius:999px;transition:width 1s cubic-bezier(.22,.8,.3,1)}
+.bar-fill.old{background:#AEAEB2}
+.bar-fill.new{background:var(--blue)}
+.bars.in .bar-fill.old-a{width:100%}
+.bars.in .bar-fill.new-a{width:78.3%}
+.bars.in .bar-fill.old-b{width:70.7%}
+.bars.in .bar-fill.new-b{width:77.2%}
+.bar-row .val{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.bar-note{font-size:13px;color:var(--gray)}
+/* 3) controversy expandable cards */
+.cards{display:grid;gap:12px;margin-top:8px}
+@media(min-width:640px){.cards{grid-template-columns:1fr 1fr;align-items:start}}
+details.card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.band details.card{background:#fff}
+details.card summary{cursor:pointer;list-style:none;padding:16px;font-weight:600;font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+details.card summary::-webkit-details-marker{display:none}
+details.card summary .plus{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--bg2);color:var(--gray);display:grid;place-items:center;font-size:16px;line-height:1;font-weight:400;transition:transform .25s ease}
+details.card[open] summary .plus{transform:rotate(45deg);background:var(--blue);color:#fff}
+details.card .card-body{padding:0 16px 16px}
+details.card .card-body ul{margin:0;padding-left:18px}
+details.card .card-body li{margin:6px 0;font-size:15px}
 a{color:var(--blue);text-decoration:none}
 a:hover{text-decoration:underline}
 .footnote{font-size:13px;color:var(--gray);line-height:1.6}
 footer{padding:32px 0 64px}
 .num{font-variant-numeric:tabular-nums}
+@media(prefers-reduced-motion:reduce){
+html{scroll-behavior:auto}
+body.loaded .hero .rise{transition:none;opacity:1;transform:none}
+.hero .rise{opacity:1;transform:none}
+.bar-fill{transition:none !important}
+.bars.in .bar-fill.old-a{width:100%}.bars.in .bar-fill.new-a{width:78.3%}.bars.in .bar-fill.old-b{width:70.7%}.bars.in .bar-fill.new-b{width:77.2%}
+details.card summary .plus{transition:none}
+}
 </style>
 </head>
 <body>
 
 <header class="top"><div class="wrap">India GDP Explainer</div></header>
 
+<nav class="mini" aria-label="Sections"><div class="wrap">
+<a href="#takeaway">Takeaway</a><a href="#old">Old vs. new</a><a href="#why">Why better</a><a href="#controversy">Controversy</a><a href="#watch">To watch</a><a href="#sources">Sources</a>
+</div></nav>
+
 <div class="wrap">
   <div class="hero">
-    <h1>India's GDP base moved to 2022–23.</h1>
-    <p class="sub">The base year moved from 2011–12 to 2022–23. Methods were updated, new data was added, and past growth rates were revised down.</p>
-    <div class="meta">Ministry of Statistics and Programme Implementation (MoSPI) · 27 Feb 2026 · PIB release PRID 2233518</div>
+    <h1 class="rise">India's GDP base moved to 2022–23.</h1>
+    <p class="sub rise">The base year moved from 2011–12 to 2022–23. Methods were updated, new data was added, and past growth rates were revised down.</p>
+    <div class="hero-stats rise">
+      <div class="stat"><b><span class="count" data-target="7.2" data-decimals="1" data-suffix="%">0%</span></b><span>New real growth, year A (was 9.2%)</span></div>
+      <div class="stat"><b><span class="count" data-target="7.1" data-decimals="1" data-suffix="%">0%</span></b><span>New real growth, year B (was 6.5%)</span></div>
+      <div class="stat"><b><span class="count" data-target="-3.8" data-decimals="1" data-suffix="%" data-prefix="">0%</span></b><span>Nominal GDP revision, 2023–25</span></div>
+    </div>
+    <div class="meta rise">Ministry of Statistics and Programme Implementation (MoSPI) · 27 Feb 2026 · PIB release PRID 2233518</div>
   </div>
 </div>
 
 <hr>
 
 <div class="wrap">
-  <section>
+  <section id="takeaway">
     <h2>The takeaway</h2>
     <p class="lede">India's economy is measured against a newer, more representative picture of the economy — but the new picture shows slightly slower growth than previously reported.</p>
     <p>Real growth was revised from 9.2% to 7.2% for one recent year, and from 6.5% to 7.1% for another. Nominal GDP levels were marked down 2.9% in 2022–23, and 3.8% in each of 2023–24 and 2024–25. The level markdowns are the government's own figures, as reported in The Diplomat.</p>
@@ -68,9 +129,22 @@ footer{padding:32px 0 64px}
 
 <div class="band">
 <div class="wrap">
-  <section>
+  <section id="old">
     <h2>Old vs. new</h2>
     <p>Base 2011–12 versus base 2022–23. Same economy, updated lens.</p>
+    <div class="bars" id="growthBars">
+      <div class="bar-group">
+        <div class="bar-label">Real growth, year A</div>
+        <div class="bar-row"><span class="tag">Old</span><div class="bar-track"><span class="bar-fill old old-a"></span></div><span class="val num">9.2%</span></div>
+        <div class="bar-row"><span class="tag">New</span><div class="bar-track"><span class="bar-fill new new-a"></span></div><span class="val num">7.2%</span></div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-label">Real growth, year B</div>
+        <div class="bar-row"><span class="tag">Old</span><div class="bar-track"><span class="bar-fill old old-b"></span></div><span class="val num">6.5%</span></div>
+        <div class="bar-row"><span class="tag">New</span><div class="bar-track"><span class="bar-fill new new-b"></span></div><span class="val num">7.1%</span></div>
+      </div>
+      <p class="bar-note">Bar lengths scaled to 9.2% = 100%. Widths animate on scroll.</p>
+    </div>
     <table>
       <caption>Revisions under the new series. Nominal levels step down; real growth is revised in both directions.</caption>
       <thead><tr><th>Measure</th><th class="n">Old (2011–12)</th><th class="n">New (2022–23)</th></tr></thead>
@@ -88,7 +162,7 @@ footer{padding:32px 0 64px}
 </div>
 
 <div class="wrap">
-  <section>
+  <section id="why">
     <h2>Why it's better</h2>
     <ul class="clean">
       <li><strong>Newer base.</strong> 2022–23 replaces 2011–12, so weights reflect how India produces and spends today.</li>
@@ -102,25 +176,25 @@ footer{padding:32px 0 64px}
 <hr>
 
 <div class="wrap">
-  <section>
+  <section id="controversy">
     <h2>The controversy</h2>
-    <div class="two">
-      <div>
-        <h3>The case for the revision</h3>
-        <ul>
+    <div class="cards">
+      <details class="card">
+        <summary>The case for the revision <span class="plus">+</span></summary>
+        <div class="card-body"><ul>
           <li>An 11-year-old base mismeasures a changed economy.</li>
           <li>Administrative data (GST, MCA, PFMS) is more complete than old surveys.</li>
           <li>Double deflation is standard international practice.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>The sceptics' case</h3>
-        <ul>
+        </ul></div>
+      </details>
+      <details class="card">
+        <summary>The sceptics' case <span class="plus">+</span></summary>
+        <div class="card-body"><ul>
           <li>Large back-revisions cut nominal GDP by nearly 4% — the denominator for deficit and debt ratios moves.</li>
           <li>Base choice matters: 2022–23 at ₹80.00 lakh crore vs. ₹88.27 lakh crore (government) vs. ₹86.05 lakh crore (Garg) for recent output.</li>
           <li>Timing invites questions: revisions land alongside strong headlines — Q1 FY27 real growth of 7.8% (HT, 3 Sep 2026) and FY26 SAE of 7.6% GDP / 7.7% GVA (MoSPI).</li>
-        </ul>
-      </div>
+        </ul></div>
+      </details>
     </div>
   </section>
 </div>
@@ -129,7 +203,7 @@ footer{padding:32px 0 64px}
 
 <div class="band">
 <div class="wrap">
-  <section>
+  <section id="watch">
     <h2>What to watch</h2>
     <ul class="clean">
       <li><strong>Back-series.</strong> How far back the revised history goes, and which years move most.</li>
@@ -143,12 +217,42 @@ footer{padding:32px 0 64px}
 </div>
 
 <div class="wrap">
-  <section>
+  <section id="sources">
     <h2>Sources</h2>
     <p class="footnote">MoSPI release 27 Feb 2026, PIB PRID 2233518 (base 2011–12 → 2022–23). Methods: Denton quarterly benchmarking; double deflation for manufacturing. Sources: GST, MCA, HCES, PLFS, ASUSE, ASI, e-Vahan, PFMS. Nominal revisions −2.9% (2022–23), −3.8% (2023–24, 2024–25) — government via The Diplomat. Growth revisions 9.2 → 7.2 and 6.5 → 7.1. Q1 FY27 +7.8% real (HT, 3 Sep 2026). Base levels 80.00 vs 88.27 (government) vs 86.05 (Garg). FY26 SAE +7.6% GDP, +7.7% GVA (MoSPI).</p>
   </section>
   <footer><p class="footnote">Single file, no external dependencies.</p></footer>
 </div>
+
+<script>
+(function(){
+var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+requestAnimationFrame(function(){requestAnimationFrame(function(){document.body.classList.add('loaded');});});
+setTimeout(function(){document.body.classList.add('loaded');},1200);
+/* 1) count-up on scroll into view */
+var els=document.querySelectorAll('.count');
+function fmt(v,dec,suf){var s=(v<0?'−':'')+Math.abs(v).toFixed(dec)+suf;return s;}
+function countUp(el){
+var t=parseFloat(el.getAttribute('data-target')),d=parseInt(el.getAttribute('data-decimals')||'1',10),suf=el.getAttribute('data-suffix')||'';
+if(reduced){el.textContent=fmt(t,d,suf);return;}
+var dur=1200,t0=null;
+function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=fmt(t*e,d,suf);if(p<1)requestAnimationFrame(step);else el.textContent=fmt(t,d,suf);}
+requestAnimationFrame(step);
+}
+if('IntersectionObserver' in window){
+var done=false,obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&!done){done=true;els.forEach(countUp);obs.disconnect();}});},{threshold:.4});
+if(els.length)obs.observe(els[0].closest('.hero-stats')||els[0]);
+/* 2) bars animate width on scroll */
+var bars=document.getElementById('growthBars');
+if(bars){if(reduced){bars.classList.add('in');}else{var b2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){bars.classList.add('in');b2.disconnect();}});},{threshold:.3});b2.observe(bars);}}
+/* 4) sticky mini-nav active highlight */
+var links=[].slice.call(document.querySelectorAll('nav.mini a'));
+var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+var secObs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('active');});var a=map[e.target.id];if(a)a.classList.add('active');}});},{rootMargin:'-40% 0px -55% 0px'});
+Object.keys(map).forEach(function(id){var s=document.getElementById(id);if(s)secObs.observe(s);});
+}else{els.forEach(countUp);var b=document.getElementById('growthBars');if(b)b.classList.add('in');}
+})();
+</script>
 
 </body>
 </html>
